@@ -1,11 +1,11 @@
 {
   "name": "@fune/fune",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Forget about boring objects and HTML. Build scalable web pages with declarative functions.",
   "scripts": {
     "build": "tsup",
     "watch": "tsup --watch",
-    "publish": "pnpm install && pnpm build && pnpm publish --registry=https://registry.npmjs.org --no-git-checks --access public"
+    "ibp": "pnpm install && pnpm build && pnpm publish --registry=https://registry.npmjs.org --no-git-checks --access public"
   },
   "keywords": [],
   "author": "intza",
@@ -32,5 +32,8 @@
       "import": "./src/_.ts"
     }
   },
+  "files": [
+    "dist"
+  ],
   "type": "module"
 }
