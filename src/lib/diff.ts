@@ -1,18 +1,6 @@
-import { isNil } from "ramda";
+import { equals } from "ramda";
 
-const equ = (a?: Node, b?: Node) => {
-  // if (a instanceof Text && b instanceof Text) {
-  //   return a.isEqualNode(b);
-  // } else {
-  //   return a === b;
-  // }
-
-  if (!isNil(a) && !isNil(b)) {
-    return a.isEqualNode(b);
-  } else {
-    return a === b;
-  }
-};
+const equ = equals;
 
 /**
  * Original License:

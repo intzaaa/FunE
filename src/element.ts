@@ -4,7 +4,7 @@ import type { Final, StaticFinal } from "./lib/type";
 import { effect } from "./lib/_";
 import { diff } from "./lib/diff";
 import { value, assign } from "./lib/util";
-import { isNil } from "ramda";
+import { isNil, clone } from "ramda";
 
 type Override<What, With> = Omit<What, keyof With> & With;
 
@@ -35,7 +35,7 @@ export const E = <T extends keyof HTMLElementTagNameMap>(
   effect(() => {
     diff(
       element,
-      Array.from(element.childNodes).filter((x) => !isNil(x)),
+      clone(Array.from(element.childNodes).filter((x) => !isNil(x))),
       (sub ? value(sub) : [])
         .map((e) => value(e))
         .map((e) => {
