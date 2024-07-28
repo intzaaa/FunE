@@ -3,14 +3,19 @@ import { isNil } from "ramda";
 import type { Final } from "./lib/_";
 import { computed, signal } from "./lib/_";
 import { E } from "./element";
+import { PM } from "./router-helper";
 
 export type RouteData = {
   location: URL;
 };
 
+export type RouteMatcher = (path: string) => boolean;
+
+export type RouteElement = (data: RouteData) => Final<HTMLElement>;
+
 export type RouteEntry = {
-  matcher: (path: string) => boolean;
-  element: (data: RouteData) => Final<HTMLElement>;
+  matcher: RouteMatcher;
+  element: RouteElement;
 };
 
 const registry = signal<RouteEntry[]>([]);
@@ -22,8 +27,20 @@ export const Location = computed(() => location.value);
 /**
  * Declare a Route Entry
  */
-export const R = (matcher: RouteEntry["matcher"], element: RouteEntry["element"]) => {
-  registry.value = [...registry.value, { matcher, element }];
+export const R = (items: [matcher: RouteMatcher | string, element: RouteElement][]) => {
+  registry.value = [
+    ...registry.value,
+    ...items.map(([matcher, element]) => {
+      if (typeof matcher === "string") {
+        return {
+          matcher: PM(matcher),
+          element,
+        };
+      } else {
+        return { matcher, element };
+      }
+    }),
+  ];
 };
 
 const match = (path: string) => {
@@ -34,8 +51,9 @@ const match = (path: string) => {
 /**
  * Router Root Element
  */
-export const RouterRoot = (fallback?: RouteEntry["element"]) => {
-  const defaultFallback: RouteEntry["element"] = () => E("div", {}, ["404 Not Found"]);
+export const RouterRoot = (fallback?: RouteElement) => {
+  const defaultFallback: RouteElement = () => E("div", {}, ["404 Not Found"]);
+
   return E(
     "div",
     {

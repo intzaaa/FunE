@@ -1,28 +1,20 @@
 {
-  "name": "fune",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "@fune/fune",
+  "version": "0.0.1",
+  "description": "Forget about boring objects and HTML. Build scalable web pages with declarative functions.",
   "scripts": {
     "build": "tsup",
-    "watch": "tsup --watch"
+    "watch": "tsup --watch",
+    "publish": "pnpm install && pnpm build && pnpm publish --registry=https://registry.npmjs.org --no-git-checks --access public"
   },
   "keywords": [],
-  "author": "",
+  "author": "intza",
   "license": "ISC",
   "packageManager": "pnpm@9.6.0+sha512.38dc6fba8dba35b39340b9700112c2fe1e12f10b17134715a4aa98ccf7bb035e76fd981cf0bb384dfa98f8d6af5481c2bef2f4266a24bfa20c34eb7147ce0b5e",
   "devDependencies": {
     "@types/node": "^20.14.11",
     "tsup": "^8.2.2",
     "typescript": "^5.5.4"
-  },
-  "exports": {
-    ".": {
-      "import": "./dist/_.js"
-    },
-    "./dev": {
-      "import": "./src/_.ts"
-    }
   },
   "dependencies": {
     "@deepsignal/core": "^4.0.0",
@@ -31,6 +23,14 @@
     "csstype": "^3.1.3",
     "minimatch": "^10.0.1",
     "ramda": "^0.30.1"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/_.js"
+    },
+    "./dev": {
+      "import": "./src/_.ts"
+    }
   },
   "type": "module"
 }

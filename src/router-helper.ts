@@ -1,18 +1,18 @@
 import { minimatch } from "minimatch";
 
-import { RouteEntry } from "./router";
+import { RouteMatcher } from "./router";
 
 /**
- * Direct Match
+ * Plain Matcher
  */
-export const DM: (p1: string) => RouteEntry["matcher"] = (p1) => (p2) => p1 === p2;
+export const PM: (p1: string) => RouteMatcher = (p1) => (p2) => p1 === p2;
 
 /**
- * Regular Expression Match
+ * Regular Expression Matcher
  */
-export const RM: (regexp: RegExp) => RouteEntry["matcher"] = (regexp) => (p) => regexp.test(p);
+export const RM: (regexp: RegExp) => RouteMatcher = (regexp) => (p) => regexp.test(p);
 
 /**
- * Glob Match
+ * Glob Matcher
  */
-export const GM: (glob: string) => RouteEntry["matcher"] = (glob) => (p) => minimatch(p, glob);
+export const GM: (glob: string) => RouteMatcher = (glob) => (p) => minimatch(p, glob);
