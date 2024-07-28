@@ -1,6 +1,6 @@
 {
   "name": "@fune/fune",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Forget about boring objects and HTML. Build scalable web pages with declarative functions.",
   "scripts": {
     "build": "tsup",
@@ -33,7 +33,8 @@
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "src"
   ],
   "type": "module"
 }
