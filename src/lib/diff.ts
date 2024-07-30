@@ -48,7 +48,7 @@ export const diff = (parentNode: Node, a: Node[], b: Node[], get: (entry: Node, 
   let bEnd = bLength;
   let aStart = 0;
   let bStart = 0;
-  let map: Map<Node, number> | null = null;
+  const map = new Map<Node, number>();
 
   while (aStart < aEnd || bStart < bEnd) {
     // append head, tail, or nodes in between: fast path
@@ -82,8 +82,7 @@ export const diff = (parentNode: Node, a: Node[], b: Node[], get: (entry: Node, 
     }
     // map based fallback, "slow" path
     else {
-      if (!map) {
-        map = new Map();
+      if (map.size === 0) {
         let i = bStart;
         while (i < bEnd) map.set(b[i]!, i++);
       }
