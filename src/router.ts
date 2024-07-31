@@ -48,6 +48,10 @@ const match = (path: string) => {
   return entry ? entry.element : null;
 };
 
+window.onpopstate = () => {
+  location.value = new URL(window.location.href);
+};
+
 /**
  * Router Root Element
  */
@@ -72,6 +76,7 @@ export const RouterRoot = (fallback?: RouteElement) => {
           if (location.value.href !== event.target.href && location.value.origin === url.origin) {
             event.preventDefault();
             location.value = url;
+            window.history.pushState({}, "", location.value.href);
           }
         }
       },
