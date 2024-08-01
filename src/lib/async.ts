@@ -1,17 +1,21 @@
 import { Final } from "./type";
-import { computed, signal, batch } from "./wrap";
+import { computed, signal, batch, ReadonlySignal } from "./wrap";
 
 type State = "processing" | "completed" | "errored";
 
 /**
  * Async Computation
  */
-export const A = <T>(calculate: (() => Promise<T>) | Promise<T>, handler: (state: State, data: T | undefined) => Final<any>) => {
+export const A = <T>(
+  calculate: (() => Promise<T>) | Promise<T>,
+  handler: (state: ReadonlySignal<State>, data: ReadonlySignal<T | undefined>) => Final<any>
+) => {
   const data = signal<T | undefined>();
   const state = signal<State>("processing");
-  const result = computed(() => {
-    return handler(state.value, data.value);
-  });
+  const result = handler(
+    computed(() => state.value),
+    computed(() => data.value)
+  );
 
   (typeof calculate === "function" ? calculate() : calculate)
     .then((r) => {
