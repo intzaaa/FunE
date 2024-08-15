@@ -61,5 +61,9 @@ export const E = <T extends keyof HTMLElementTagNameMap>(
     diff(element, before, after, (o: any) => o);
   });
 
+  effect(() => {
+    value(atr)?.action?.(element);
+  });
+
   return element;
 };
